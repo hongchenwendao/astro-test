@@ -1,0 +1,64 @@
+---
+/**
+ * 共享 SEO Head 组件
+ * 在各站的 Layout.astro 里引入，自动生成 Open Graph / Twitter Card / JSON-LD
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  siteName: string;
+  siteUrl: string;
+  accentColor?: string;
+  page?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  siteName,
+  siteUrl,
+  accentColor = '#6366f1',
+  page = '',
+  type = 'website',
+} = Astro.props;
+
+const canonicalUrl = `${siteUrl}${page}`;
+const ogImage = `${siteUrl}/og-image.png`;
+---
+
+<!-- Canonical -->
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="zh_CN" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+<!-- Theme -->
+<meta name="theme-color" content={accentColor} />
+
+<!-- JSON-LD 结构化数据 -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": siteName,
+  "description": description,
+  "url": siteUrl,
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+})} />

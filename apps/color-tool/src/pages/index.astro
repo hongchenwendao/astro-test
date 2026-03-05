@@ -1,0 +1,267 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import { Footer } from '@saas/ui';
+import siteConfig from '../../site.config';
+
+const features = [
+  { icon: '🎨', title: '调色板生成', desc: '一键生成和谐配色方案，支持互补色、类似色、三角色等多种模式。' },
+  { icon: '🔄', title: '格式转换', desc: 'HEX、RGB、HSL、CMYK 之间自由转换，复制即用。' },
+  { icon: '👁️', title: '对比度检测', desc: '自动计算前景/背景色对比度，满足 WCAG 无障碍标准。' },
+  { icon: '🖼️', title: '图片取色', desc: '上传图片自动提取主色调，一秒获取摄影作品的配色灵感。' },
+  { icon: '🌈', title: '渐变生成', desc: '可视化创建 CSS 渐变，支持线性/径向渐变方向调节。' },
+  { icon: '🔒', title: '本地处理', desc: '所有计算在浏览器端完成，安全可靠。' },
+];
+
+const paletteColors = ['#f97316', '#fb923c', '#fdba74', '#fed7aa', '#fff7ed'];
+---
+
+<Layout>
+  <Navbar />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">🎨 设计师配色利器 — 永久免费</div>
+    <h1 class="hero-title">
+      专业配色 <br />
+      <span class="gradient-text">灵感即刻呈现</span>
+    </h1>
+    <p class="hero-desc">{siteConfig.description}</p>
+    <div class="hero-actions">
+      <a href="/tool" class="btn-primary">开始调色 →</a>
+      <a href="/pricing" class="btn-secondary">查看定价</a>
+    </div>
+
+    <!-- 调色板预览 -->
+    <div class="palette-preview">
+      {paletteColors.map((c) => (
+        <div class="palette-swatch" style={`background: ${c};`}>
+          <span class="swatch-label">{c}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section">
+    <h2 class="section-title">让配色不再纠结</h2>
+    <p class="section-subtitle">设计师和开发者的色彩工作台</p>
+    <div class="features-grid">
+      {features.map((f) => (
+        <div class="feature-card">
+          <div class="feature-icon">{f.icon}</div>
+          <h3>{f.title}</h3>
+          <p>{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-glow"></div>
+    <h2>找到你的完美配色</h2>
+    <p>无需注册，无需安装，打开即用。</p>
+    <a href="/tool" class="btn-primary btn-lg">打开调色工具 →</a>
+  </section>
+
+  <Footer
+    
+    siteName={siteConfig.name}
+    sisterSites={siteConfig.sisterSites}
+    accentColor={siteConfig.accentColor}
+  />
+</Layout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fb923c;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    margin-bottom: 32px;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #f1f5f9;
+    margin-bottom: 24px;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fdba74 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #94a3b8;
+    max-width: 540px;
+    margin: 0 auto 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #f97316, #fb923c);
+    box-shadow: 0 4px 24px rgba(249, 115, 22, 0.35);
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(249, 115, 22, 0.45);
+  }
+
+  .btn-secondary {
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-lg { padding: 18px 40px; font-size: 18px; }
+
+  /* Palette Preview */
+  .palette-preview {
+    display: flex;
+    border-radius: 16px;
+    overflow: hidden;
+    max-width: 480px;
+    margin: 0 auto;
+    height: 120px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .palette-swatch {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+    transition: flex 0.3s ease;
+    cursor: pointer;
+  }
+
+  .palette-swatch:hover { flex: 1.5; }
+
+  .swatch-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .palette-swatch:hover .swatch-label { opacity: 1; }
+
+  /* Features */
+  .features-section {
+    padding: 80px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 16px;
+    margin-bottom: 48px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .feature-card {
+    padding: 28px 24px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(249, 115, 22, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(249, 115, 22, 0.08);
+  }
+
+  .feature-icon { font-size: 32px; margin-bottom: 16px; }
+  .feature-card h3 { font-size: 16px; font-weight: 700; color: #e2e8f0; margin-bottom: 8px; }
+  .feature-card p { font-size: 14px; line-height: 1.6; color: #94a3b8; }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(249, 115, 22, 0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 { font-size: 36px; font-weight: 800; color: #f1f5f9; margin-bottom: 12px; position: relative; }
+  .cta-section p { font-size: 18px; color: #94a3b8; margin-bottom: 32px; position: relative; }
+  .cta-section .btn-primary { position: relative; }
+
+  @media (max-width: 768px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: center; }
+  }
+</style>

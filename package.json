@@ -1,14 +1,13 @@
 {
-  "name": "astro",
-  "type": "module",
+  "name": "saas-sites",
+  "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^5.17.1"
+    "dev": "pnpm --filter image-tool dev",
+    "dev:json": "pnpm --filter json-tool dev",
+    "dev:color": "pnpm --filter color-tool dev",
+    "generate": "node scripts/create-site.mjs",
+    "build": "pnpm -r build",
+    "preview": "pnpm --filter image-tool preview"
   }
 }

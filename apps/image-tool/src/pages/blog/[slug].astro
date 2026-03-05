@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { Footer, Prose } from '@saas/ui';
+import siteConfig from '../../../site.config';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <Navbar />
+
+  <article class="blog-article">
+    <!-- 文章头部 -->
+    <header class="article-header">
+      <a href="/blog" class="back-link">← 返回博客</a>
+      <div class="article-meta">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {post.data.pubDate.toLocaleDateString('zh-CN', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          })}
+        </time>
+        {post.data.author && <span class="author">· {post.data.author}</span>}
+      </div>
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="article-tags">
+          {post.data.tags.map(tag => (
+            <span class="article-tag">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- 文章正文：使用 Prose 排版组件包裹 Markdown 渲染结果 -->
+    <div class="article-content">
+      <Prose client:load>
+        <Content />
+      </Prose>
+    </div>
+  </article>
+
+  <Footer
+    siteName={siteConfig.name}
+    sisterSites={siteConfig.sisterSites}
+    accentColor={siteConfig.accentColor}
+  />
+</Layout>
+
+<style>
+  .blog-article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .article-header {
+    margin-bottom: 40px;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 14px;
+    color: #818cf8;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #a78bfa;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .article-meta time,
+  .article-meta .author {
+    font-size: 14px;
+    color: #64748b;
+  }
+
+  .article-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .article-tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(99, 102, 241, 0.1);
+    color: #a78bfa;
+    font-weight: 500;
+  }
+
+  .article-content {
+    min-height: 400px;
+  }
+</style>
+
+<!-- 文章页 SEO：JSON-LD 结构化数据 -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "datePublished": post.data.pubDate.toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": post.data.author || siteConfig.name
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": siteConfig.name
+  }
+})} />

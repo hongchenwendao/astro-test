@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import { Footer } from '@saas/ui';
+import ColorTool from '../tools/ColorTool';
+import siteConfig from '../../site.config';
+---
+
+<Layout title="调色工具" description="在线颜色格式转换、调色板生成、对比度检测。">
+  <Navbar />
+
+  <section class="tool-section">
+    <h1 class="tool-title">颜色工具箱</h1>
+    <p class="tool-desc">
+      输入任意颜色值，即时转换格式、生成配色方案、检测对比度。
+      <strong>纯浏览器计算，安全可靠。</strong>
+    </p>
+
+    <ColorTool client:load accentColor={siteConfig.accentColor} />
+  </section>
+
+  <Footer
+    
+    siteName={siteConfig.name}
+    sisterSites={siteConfig.sisterSites}
+    accentColor={siteConfig.accentColor}
+  />
+</Layout>
+
+<style>
+  .tool-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  .tool-title { font-size: 32px; font-weight: 800; color: #f1f5f9; margin-bottom: 12px; }
+  .tool-desc { font-size: 16px; color: #94a3b8; line-height: 1.6; margin-bottom: 32px; }
+  .tool-desc strong { color: #fb923c; }
+</style>

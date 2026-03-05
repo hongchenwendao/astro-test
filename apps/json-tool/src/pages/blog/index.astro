@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { Footer } from '@saas/ui';
+import siteConfig from '../../../site.config';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title="博客" description="JSON 格式化技巧、API 开发最佳实践和前端数据处理指南。">
+  <Navbar />
+
+  <section class="blog-header">
+    <h1 class="blog-title">博客</h1>
+    <p class="blog-desc">JSON 格式化技巧、API 开发与前端数据处理指南</p>
+  </section>
+
+  <section class="blog-grid">
+    {posts.map((post) => (
+      <a href={`/blog/${post.slug}`} class="blog-card">
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="blog-tags">
+                {post.data.tags.slice(0, 2).map(tag => (<span class="blog-tag">{tag}</span>))}
+              </div>
+            )}
+          </div>
+          <h2 class="blog-card-title">{post.data.title}</h2>
+          <p class="blog-card-desc">{post.data.description}</p>
+          <span class="blog-read-more">阅读全文 →</span>
+        </div>
+      </a>
+    ))}
+  </section>
+
+  <Footer siteName={siteConfig.name} sisterSites={siteConfig.sisterSites} accentColor={siteConfig.accentColor} />
+</Layout>
+
+<style>
+  .blog-header { text-align: center; padding: 80px 24px 40px; max-width: 800px; margin: 0 auto; }
+  .blog-title { font-size: 42px; font-weight: 800; color: #f1f5f9; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .blog-desc { font-size: 18px; color: #64748b; line-height: 1.6; }
+  .blog-grid { max-width: 800px; margin: 0 auto; padding: 0 24px 80px; display: grid; gap: 20px; }
+  .blog-card { display: block; padding: 28px 32px; border-radius: 16px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); text-decoration: none; transition: all 0.3s ease; }
+  .blog-card:hover { border-color: rgba(16, 185, 129, 0.3); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(16, 185, 129, 0.08); }
+  .blog-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .blog-meta time { font-size: 13px; color: #64748b; }
+  .blog-tags { display: flex; gap: 6px; }
+  .blog-tag { font-size: 11px; padding: 2px 8px; border-radius: 100px; background: rgba(16, 185, 129, 0.1); color: #34d399; font-weight: 500; }
+  .blog-card-title { font-size: 20px; font-weight: 700; color: #e2e8f0; margin-bottom: 8px; line-height: 1.4; }
+  .blog-card-desc { font-size: 15px; color: #94a3b8; line-height: 1.6; margin-bottom: 16px; }
+  .blog-read-more { font-size: 14px; font-weight: 600; color: #34d399; }
+  .blog-card:hover .blog-read-more { color: #6ee7b7; }
+</style>

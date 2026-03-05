@@ -1,0 +1,359 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import { Footer } from '@saas/ui';
+import siteConfig from '../../site.config';
+
+const features = [
+  {
+    icon: '✨',
+    title: '一键美化',
+    desc: '自动格式化混乱的 JSON，缩进清晰，层级分明，秒变可读。',
+  },
+  {
+    icon: '🔍',
+    title: '语法校验',
+    desc: '精准定位 JSON 语法错误，高亮错误行，给出修复建议。',
+  },
+  {
+    icon: '📦',
+    title: '压缩混淆',
+    desc: '移除空格和换行，将 JSON 压缩到最小体积，节省传输带宽。',
+  },
+  {
+    icon: '🌳',
+    title: '树状查看',
+    desc: '将 JSON 展开为可折叠的树状结构，轻松浏览嵌套数据。',
+  },
+  {
+    icon: '🔒',
+    title: '本地处理',
+    desc: '所有数据处理都在浏览器端完成，你的 JSON 不会离开你的电脑。',
+  },
+  {
+    icon: '⚡',
+    title: '极速响应',
+    desc: '无需等待服务器，毫秒级解析和格式化，大文件也不卡顿。',
+  },
+];
+---
+
+<Layout>
+  <Navbar />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">🛠️ 开发者必备工具 — 永久免费</div>
+    <h1 class="hero-title">
+      JSON 格式化 <br />
+      <span class="gradient-text">从此告别混乱</span>
+    </h1>
+    <p class="hero-desc">
+      {siteConfig.description}
+    </p>
+    <div class="hero-actions">
+      <a href="/tool" class="btn-primary">开始格式化 →</a>
+      <a href="/pricing" class="btn-secondary">查看定价</a>
+    </div>
+
+    <!-- Code preview -->
+    <div class="code-preview">
+      <div class="code-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="code-title">example.json</span>
+      </div>
+      <pre class="code-body"><code>{`{
+  "name": "JSONGenie",
+  "version": "1.0.0",
+  "features": [
+    "格式化",
+    "校验",
+    "压缩"
+  ],
+  "free": true
+}`}</code></pre>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section">
+    <h2 class="section-title">为什么选择 JSONGenie？</h2>
+    <p class="section-subtitle">开发者的瑞士军刀</p>
+    <div class="features-grid">
+      {features.map((f) => (
+        <div class="feature-card">
+          <div class="feature-icon">{f.icon}</div>
+          <h3>{f.title}</h3>
+          <p>{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-glow"></div>
+    <h2>告别凌乱的 JSON</h2>
+    <p>打开即用，无需注册，无需安装。</p>
+    <a href="/tool" class="btn-primary btn-lg">打开 JSON 工具 →</a>
+  </section>
+
+  <Footer
+    
+    siteName={siteConfig.name}
+    sisterSites={siteConfig.sisterSites}
+    accentColor={siteConfig.accentColor}
+  />
+</Layout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    margin-bottom: 32px;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #f1f5f9;
+    margin-bottom: 24px;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #94a3b8;
+    max-width: 540px;
+    margin: 0 auto 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #10b981, #34d399);
+    box-shadow: 0 4px 24px rgba(16, 185, 129, 0.35);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.45);
+  }
+
+  .btn-secondary {
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-lg {
+    padding: 18px 40px;
+    font-size: 18px;
+  }
+
+  /* Code Preview */
+  .code-preview {
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: left;
+    backdrop-filter: blur(10px);
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ef4444; }
+  .dot.yellow { background: #eab308; }
+  .dot.green { background: #22c55e; }
+
+  .code-title {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #64748b;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .code-body {
+    padding: 20px;
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #34d399;
+    overflow-x: auto;
+  }
+
+  .code-body code {
+    color: inherit;
+  }
+
+  /* Features */
+  .features-section {
+    padding: 80px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 16px;
+    margin-bottom: 48px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .feature-card {
+    padding: 28px 24px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.08);
+  }
+
+  .feature-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .feature-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin-bottom: 8px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #94a3b8;
+  }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(16, 185, 129, 0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .cta-section p {
+    font-size: 18px;
+    color: #94a3b8;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .cta-section .btn-primary {
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

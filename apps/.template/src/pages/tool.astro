@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import { Footer } from '@saas/ui';
+import siteConfig from '../../site.config';
+---
+
+<Layout title="在线工具" description="免费好用的浏览器端工具。">
+  <Navbar />
+
+  <section class="tool-section">
+    <h1 class="tool-title">{{TOOL_TITLE}}</h1>
+    <p class="tool-desc">
+      {{TOOL_DESC}}
+      <strong>不会上传到任何服务器。</strong>
+    </p>
+
+    <!-- 在这里放入你的核心业务组件 React/Vue/Svelte -->
+    <div style="padding: 100px; text-align: center; border: 2px dashed rgba(255,255,255,0.1); border-radius: 20px;">
+      <h3 style="color: #64748b; font-weight: 500;">🔧 核心工具区域占位符</h3>
+      <p style="color: #475569; font-size: 14px; margin-top: 10px;">请在此处渲染你的 React/Vue 交互组件</p>
+    </div>
+  </section>
+
+  <Footer
+    
+    siteName={siteConfig.name}
+    sisterSites={siteConfig.sisterSites}
+    accentColor={siteConfig.accentColor}
+  />
+</Layout>
+
+<style>
+  .tool-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  .tool-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin-bottom: 12px;
+  }
+
+  .tool-desc {
+    font-size: 16px;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .tool-desc strong {
+    color: #a78bfa;
+  }
+</style>

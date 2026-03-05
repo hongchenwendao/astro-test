@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import { PricingTable, Footer } from '@saas/ui';
+import siteConfig from '../../site.config';
+---
+
+<Layout title="定价" description="ColorSpark 简单透明的定价方案。">
+  <Navbar />
+
+  <section class="pricing-section">
+    <h1 class="pricing-title">简单透明的定价</h1>
+    <p class="pricing-desc">核心功能永久免费，高级功能按需升级。</p>
+
+    <PricingTable client:load
+      plans={siteConfig.pricingPlans}
+      accentColor={siteConfig.accentColor}
+    />
+  </section>
+
+  <Footer
+    
+    siteName={siteConfig.name}
+    sisterSites={siteConfig.sisterSites}
+    accentColor={siteConfig.accentColor}
+  />
+</Layout>
+
+<style>
+  .pricing-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+    text-align: center;
+  }
+
+  .pricing-title { font-size: 36px; font-weight: 800; color: #f1f5f9; margin-bottom: 12px; }
+  .pricing-desc { font-size: 18px; color: #94a3b8; margin-bottom: 48px; }
+</style>
