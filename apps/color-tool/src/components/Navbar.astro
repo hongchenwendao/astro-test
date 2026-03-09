@@ -1,5 +1,6 @@
 ---
 import siteConfig from '../../site.config';
+import { Show, SignInButton, UserButton } from '@clerk/astro/components';
 
 const navLinks = [
   { label: '首页', href: '/' },
@@ -29,7 +30,14 @@ const currentPath = Astro.url.pathname;
       ))}
     </div>
 
-    <a href="/tool" class="nav-cta">免费试用 →</a>
+    <div class="nav-right">
+      <Show when="signed-out">
+        <SignInButton mode="modal" />
+      </Show>
+      <Show when="signed-in">
+        <UserButton />
+      </Show>
+    </div>
   </div>
 </nav>
 
@@ -85,20 +93,31 @@ const currentPath = Astro.url.pathname;
     background: rgba(249, 115, 22, 0.12);
   }
 
-  .nav-cta {
-    padding: 8px 20px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    color: white;
-    background: linear-gradient(135deg, #f97316, #fb923c);
-    box-shadow: 0 2px 12px rgba(249, 115, 22, 0.3);
-    transition: all 0.2s ease;
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .nav-cta:hover {
+  /* 直接给 Clerk 生成的 SignInButton 按钮添加样式 */
+  .nav-right :global(button) {
+    padding: 8px 20px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: white !important;
+    background: linear-gradient(135deg, #f97316, #fb923c) !important;
+    box-shadow: 0 2px 12px rgba(249, 115, 22, 0.3) !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-right :global(button:hover) {
     transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
+    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4) !important;
   }
 
   @media (max-width: 640px) {

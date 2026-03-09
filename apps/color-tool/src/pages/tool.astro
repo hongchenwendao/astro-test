@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import { Footer } from '@saas/ui';
 import ColorTool from '../tools/ColorTool';
+import UserPlanBadge from '../components/UserPlanBadge';
 import siteConfig from '../../site.config';
 ---
 
@@ -16,6 +17,7 @@ import siteConfig from '../../site.config';
       <strong>纯浏览器计算，安全可靠。</strong>
     </p>
 
+    <UserPlanBadge client:load accentColor={siteConfig.accentColor} />
     <ColorTool client:load accentColor={siteConfig.accentColor} />
   </section>
 
